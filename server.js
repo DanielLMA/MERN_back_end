@@ -16,7 +16,7 @@ app.set("view engine", "handlebars");
 
 mongoose
   .connect(
-    "mongodb+srv://danade:123abc@cluster0-ejgeo.mongodb.net/test?retryWrites=true&w=majority",
+    process.env.DB_HOST,
     { autoIndex: false, useNewUrlParser: true }
   )
   .then(() => console.log("MongoDB successfully connected"))
