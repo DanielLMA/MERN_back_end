@@ -1,20 +1,20 @@
-function authRedirect(req, res, next) {
-    if (req.user) {
-        return res.redirect("/dashboard")
-    }
+// function authRedirect(req, res, next) {
+//     if (req.user) {
+//         return res.redirect("/dashboard")
+//     }
 
-    return next()
-}
+//     return next()
+// }
 
-function authorise(req, res, next) {
-    if (req.user) {
-        return next()
-    }
+// function authorise(req, res, next) {
+//     if (req.user) {
+//         return next()
+//     }
 
-    return res.redirect('/login')
-}
+//     return res.redirect('/login')
+// }
 
-module.exports = {
-    authRedirect,
-    authorise
-}
+// module.exports = {
+//     authRedirect,
+//     authorise
+// }

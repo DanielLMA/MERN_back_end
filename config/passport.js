@@ -2,7 +2,6 @@ const passport = require("passport");
 const { UserModel } = require("../database/models/User");
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const LocalStrategy = require('passport-local')
-require ("dotenv").config()
 
 //SERIALIZE AND DESERIALIZE 
 passport.serializeUser((user, done) => {
@@ -34,7 +33,6 @@ passport.use(new LocalStrategy({
 passport.use(
   new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    // secretOrKey: keys.secretOrKey
     secretOrKey: process.env.SESSION_SECRET
   },
     async (jwt_payload, done) => {
@@ -47,6 +45,11 @@ passport.use(
   )
 );
 
+module.exports = passport;
+
+
+
+//!before modularize
 // passport.serializeUser(UserModel.serializeUser());
 // passport.deserializeUser(UserModel.deserializeUser());
 
@@ -68,5 +71,3 @@ passport.use(
 //         }
 //     }
 // ));
-
-module.exports = passport;
