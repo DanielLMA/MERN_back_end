@@ -17,6 +17,8 @@ router.post('/login', passport.authenticate('jwt', {
     session: false,
 }), AuthController.loginCreate)
 
+router.get('/users', AuthController.getUsers)
+
 
 //?previous routes before modularize. 
 // router.get('/register', authRedirect, AuthController.registerNew)

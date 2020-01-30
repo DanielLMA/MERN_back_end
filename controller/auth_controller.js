@@ -33,11 +33,18 @@ async function loginCreate(req, res) {
     res.json(token)
 }
 
+async function  getUsers(req, res) {
+    const users = await UserModel.find()
+
+    res.json({users})
+}
+
 module.exports = {
     register,
     logout,
     loginNew,
-    loginCreate
+    loginCreate,
+    getUsers
 }
 
 
