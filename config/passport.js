@@ -1,25 +1,73 @@
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-const mongoose = require("mongoose");
-const User = mongoose.model("users");
-const keys = require("../config/keys");
-//test
+const passport = require("passport");
+const { UserModel } = require("../database/models/User");
+const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
+const LocalStrategy = require('passport-local')
 
-const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = keys.secretOrKey;
+//SERIALIZE AND DESERIALIZE 
+passport.serializeUser((user, done) => {
+    done(null, user._id)
+}) 
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await UserModel.findById(id)
+        done(null, user)
+    }
+    catch (error) {
+        done(error)
+    }
+})
 
-module.exports = passport => {
-  passport.use(
-    new JwtStrategy(opts, (jwt_payload, done) => {
-      User.findById(jwt_payload.id)
-        .then(user => {
-          if (user) {
-            return done(null, user);
-          }
-          return done(null, false);
-        })
-        .catch(err => console.log(err));
-    })
-  );
-};
+//STRATEGIES. MAY CONVERT ALL TO JWT STRATEGY IN THE END. 
+passport.use(new LocalStrategy({
+        usernameField: "email"
+    },
+    async (email, password, done) => {
+        const user = await UserModel.findOne({ email }).catch(done)
+
+        if (!user || !user.verifyPasswordSync(password)) {
+            return done(null, false)
+        }
+        return done(null, user)
+    }
+))
+passport.use(
+  new JwtStrategy({
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.SESSION_SECRET
+  },
+    async (jwt_payload, done) => {
+        const user = await UserModel.findById(jwt_payload.sub).catch(done)
+        if (!user) {
+            return done(null, false)
+        }
+        return done(null, user)
+    }
+  )
+);
+
+module.exports = passport;
+
+
+
+//!before modularize
+// passport.serializeUser(UserModel.serializeUser());
+// passport.deserializeUser(UserModel.deserializeUser());
+
+// passport.use(new JwtStrategy({
+//         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+//         secretOrKey: process.env.SESSION_SECRET
+//     },
+//     async (jwt_payload, done) => {
+//         try{
+//             const user = await UserModel.findById(jwt_payload.sub);
+
+//             if (!user) {
+//                 return done(null, false);
+//             }
+
+//             return done(null, user);           
+//         } catch (error) {
+//             return done(error);
+//         }
+//     }
+// ));

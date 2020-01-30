@@ -1,44 +1,44 @@
-// const app = require('./app.js')
-
 const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const passport = require("passport");
-const users = require("./routes/api/users");
+const exphbs = require("express-handlebars");
+const morgan = require("morgan");
+const mongoose = require("mongoose")
+const cors = require('cors')
+require ("dotenv").config()
+
 const app = express();
 
-// Bodyparser middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-app.use(bodyParser.json());
+app.use(cors({
+  origin: process.env.FRONT_END_DOMAIN
+}))
 
-// DB Config
-const db = require("./config/keys").mongoURI;
+app.engine("handlebars", exphbs({defaultLayout: "main"}));
+app.set("view engine", "handlebars");
 
-// Connect to MongoDB
 mongoose
   .connect(
-    db,
-    { useNewUrlParser: true }
+    process.env.DB_HOST,
+    { autoIndex: false, useNewUrlParser: true }
   )
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 
-// Passport middleware
-app.use(passport.initialize());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-// Passport config
-require("./config/passport")(passport);
+const passport = require('./config/passport')
 
-// Routes
-app.use("/api/users", users);
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use(morgan("combined"));
+
+app.use(require("./routes"));
+
+app.use(express.static("public"));
+
+app.use(require("./middleware/error_handler_middleware"));
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
 
-app.get('/', (req, res) => res.send("API Running"));
-
-module.exports = app 
+module.exports = app;
