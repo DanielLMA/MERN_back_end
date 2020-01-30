@@ -11,9 +11,9 @@ router.use("/auth", AuthRoutes);
 router.get('/dashboard', passport.authenticate('jwt', {session: false}), PageController.dashboard)
 router.get("/", PageController.index);
 //local and successRedirect hashed before jwt 
-router.post('/login', passport.authenticate('jwt', {
-    // successRedirect: "/dashboard",
-    failureRedirect: "/login",
+router.post('/login', passport.authenticate('local', {
+    // successRedirect: "/",
+    // failureRedirect: "/login",
     session: false,
 }), AuthController.loginCreate)
 

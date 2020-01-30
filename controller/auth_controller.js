@@ -1,14 +1,16 @@
 const { UserModel }  = require('../database/models/User')
 const JWTService = require("../services/jwt_service");
 const HTTPError = require('http-errors')
+const bcrypt = require('bcryptjs');
 
 
 function register(req, res, next) {
     console.log(req.body)
     const { email, password } = req.body;
-    const user = new UserModel({ email, password });
+    const passwordHash = bcrypt.hashSync(password, 8);
+    const user = new UserModel({ email, password: passwordHash });
 
-    UserModel.register(user, password, (err, user) => { 
+    UserModel.register(user, passwordHash, (err, user) => { 
         if (err) {
             return next(new HTTPError(500, err.message));
         }
@@ -20,7 +22,7 @@ function register(req, res, next) {
 }
 
 async function logout(req, res) {
-    req.logout()
+    req.logout() 
     res.redirect('/')
 }
 
@@ -29,8 +31,8 @@ async function loginNew(req, res) {
 }
 
 async function loginCreate(req, res) {
-    const token = jwt.sign({ sub: req.user._id }, process.env.SESSION_SECRET)
-    res.json(token)
+    const token = JWTService.generateToken(req.user);
+    res.json({ token })
 }
 
 async function  getUsers(req, res) {
