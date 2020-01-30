@@ -14,9 +14,10 @@ app.use(cors({
 app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
+//make changes here and connect.js when setting DB_HOST
 mongoose
   .connect(
-    process.env.DB_HOST,
+    process.env.LOCAL_DB_HOST,
     { autoIndex: false, useNewUrlParser: true }
   )
   .then(() => console.log("MongoDB successfully connected"))
