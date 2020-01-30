@@ -24,7 +24,7 @@ passport.use(new LocalStrategy({
     async (email, password, done) => {
         const user = await UserModel.findOne({ email }).catch(done)
 
-        if (!user || !user.verifyPasswordSync(password)) {
+        if (!user || !user.verifyPassword(password)) {
             return done(null, false)
         }
         return done(null, user)
@@ -36,6 +36,7 @@ passport.use(
     secretOrKey: process.env.SESSION_SECRET
   },
     async (jwt_payload, done) => {
+        console.log("jwt accessed")
         const user = await UserModel.findById(jwt_payload.sub).catch(done)
         if (!user) {
             return done(null, false)

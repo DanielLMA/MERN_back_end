@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
+const bcrypt = require('bcryptjs')
 
 
 // Create Schema
@@ -16,6 +17,11 @@ const UserSchema = new Schema({
 });
 
 UserSchema.plugin(passportLocalMongoose, { usernameField: 'email', usernameUnique: true } )
+
+UserSchema.methods.verifyPassword = function(password) {
+  console.log('VERIFYING PASSWORD...', bcrypt.compareSync(password, this.password))
+  return bcrypt.compareSync(password, this.password);
+};
 
 const UserModel = mongoose.model("user", UserSchema)
 
