@@ -7,12 +7,10 @@ require ("dotenv").config()
 
 const app = express();
 
+//Change front end domain here and ... for
 app.use(cors({
-  origin: process.env.FRONT_END_DOMAIN
+  origin: process.env.FRONT_END_DOMAIN_LIVE
 }))
-
-app.engine("handlebars", exphbs({defaultLayout: "main"}));
-app.set("view engine", "handlebars");
 
 //make changes here and connect.js when setting DB_HOST
 mongoose
