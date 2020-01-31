@@ -29,6 +29,8 @@ const passport = require('./config/passport')
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use("/uploads", express.static('uploads'))
+
 app.use(morgan("combined"));
 
 app.use(require("./routes"));
