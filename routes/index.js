@@ -8,8 +8,8 @@ const AuthController = require('../controller/auth_controller')
 
 router.use("/auth", AuthRoutes);
 
-router.get('/dashboard', passport.authenticate('jwt', {session: false}), PageController.dashboard)
-router.get("/", PageController.index);
+// router.get('/dashboard', passport.authenticate('jwt', {session: false}), PageController.dashboard)
+// router.get("/", PageController.index);
 //local and successRedirect hashed before jwt 
 router.post('/login', passport.authenticate('local', {
     // successRedirect: "/",
