@@ -11,7 +11,7 @@ async function create(req, res) {
 async function show(req, res) {
     let { id } = req.params
     let message = await ContactModel.findById(id)
-    res.render("form/show", { message })
+    res.render("form/show", { name, message })
 }
 
 module.exports = {

@@ -12,3 +12,5 @@
 //     type: String
 // }
 // })
+
+// module.exports = ContactSchema

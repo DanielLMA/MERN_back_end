@@ -14,12 +14,13 @@ router.get("/images", (req,res) => {
 
 router.post("/form", (req, res) => {
     console.log(req.body)
-    res.send(200)
+    res.sendStatus(200)
     // ContactModel.create()
   })
   
   router.get("/form", (req, res) => {
-    res.send(200)
+      console.log(req.body)
+    res.sendStatus(200)
   })
 
 router.use("/auth", AuthRoutes);
