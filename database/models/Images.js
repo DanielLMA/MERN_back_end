@@ -5,11 +5,11 @@ const ImageSchema = new Schema( {
     imageName: {
         type: String,
         default: "none",
-        required: true
+        // required: true
     },
     imageData: {
         type: String,
-        required: true
+        // required: true
     }
 })
 
