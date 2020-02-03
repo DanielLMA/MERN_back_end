@@ -9,7 +9,7 @@ const app = express();
 
 //Change front end domain here and ... for
 app.use(cors({
-  origin: process.env.FRONT_END_DOMAIN_LIVE
+  origin: process.env.FRONT_END_DOMAIN_TEST
 }))
 
 //make changes here and connect.js when setting DB_HOST
