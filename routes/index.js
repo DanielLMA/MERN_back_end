@@ -4,7 +4,12 @@ const passport = require("passport")
 const AuthRoutes = require("./auth_routes");
 const PageController = require('../controller/page_controller')
 const AuthController = require('../controller/auth_controller')
+const ImageModel = require('../database/models/Images')
 // const { authRedirect, authorise } = require('../middleware/auth_middleware')
+
+router.get("/images", (req,res) => {
+    ImageModel.find().then(docs => res.send(docs))
+})
 
 router.use("/auth", AuthRoutes);
 
