@@ -10,14 +10,6 @@ router.post("/register", celebrate({
     }
 }), AuthController.register);
 
-router.post("/form", (req, res) => {
-    console.log(req.body)
-    res.send(200)
-    // FormModel.create(savedData)
-  })
-  
-  router.get("/form", (req, res) => {
-    res.send(200)
-  })
+
 
 module.exports = router;

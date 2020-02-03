@@ -5,11 +5,22 @@ const AuthRoutes = require("./auth_routes");
 const PageController = require('../controller/page_controller')
 const AuthController = require('../controller/auth_controller')
 const ImageModel = require('../database/models/Images')
+const ContactModel = require("../controller/contact_controller")
 // const { authRedirect, authorise } = require('../middleware/auth_middleware')
 
 router.get("/images", (req,res) => {
     ImageModel.find().then(docs => res.send(docs))
 })
+
+router.post("/form", (req, res) => {
+    console.log(req.body)
+    res.send(200)
+    // ContactModel.create()
+  })
+  
+  router.get("/form", (req, res) => {
+    res.send(200)
+  })
 
 router.use("/auth", AuthRoutes);
 
