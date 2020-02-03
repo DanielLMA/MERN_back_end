@@ -12,14 +12,19 @@ router.get("/images", (req,res) => {
     ImageModel.find().then(docs => res.send(docs))
 })
 
+// router.post("/form", (req, res) => {
+//     console.log(req.body)
+//     res.sendStatus(200)
+//     // ContactModel.create()
+//   })
 router.post("/form", (req, res) => {
     console.log(req.body)
     res.sendStatus(200)
-    // ContactModel.create()
-  })
+    ContactModel.create(req)
+})
   
   router.get("/form", (req, res) => {
-      console.log(req.body)
+      console.log("Route works")
     res.sendStatus(200)
   })
 

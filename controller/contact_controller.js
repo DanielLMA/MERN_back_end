@@ -9,9 +9,9 @@ async function create(req, res) {
 }
 
 async function show(req, res) {
-    let { id } = req.params
-    let message = await ContactModel.findById(id)
-    res.render("form/show", { name, message })
+    // let { id } = req.params
+    let message = await ContactModel.findById()
+    res.render("form/show", { email, name, message })
 }
 
 module.exports = {
