@@ -5,14 +5,18 @@ const ImageSchema = new Schema( {
     imageName: {
         type: String,
         default: "none",
-        // required: true
+        required: true
     },
     imageData: {
         type: String,
-        // required: true
-    }
+        required: true
+    },
+    imagePath: {
+    	type: String,
+    	required:true
+    }	    
 })
 
 const Image = mongoose.model("Image", ImageSchema)
 
-module.exports = Image;
+module.exports = { Image, ImageSchema} ;
