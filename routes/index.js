@@ -5,6 +5,7 @@ const AuthRoutes = require("./auth_routes");
 const PageController = require('../controller/page_controller')
 const AuthController = require('../controller/auth_controller')
 const ImageModel = require('../database/models/Images')
+const GalleryRoutes = require("./gallery_routes");
 // const { authRedirect, authorise } = require('../middleware/auth_middleware')
 
 router.get("/images", (req,res) => {
@@ -12,6 +13,7 @@ router.get("/images", (req,res) => {
 })
 
 router.use("/auth", AuthRoutes);
+router.use("/uploadingToGallery", GalleryRoutes);
 
 // router.get('/dashboard', passport.authenticate('jwt', {session: false}), PageController.dashboard)
 // router.get("/", PageController.index);
