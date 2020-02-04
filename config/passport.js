@@ -1,7 +1,7 @@
 const passport = require("passport");
 const { UserModel } = require("../database/models/User");
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
-const LocalStrategy = require('passport-local')
+const LocalStrategy = require('passport-local-mongoose')
 
 //SERIALIZE AND DESERIALIZE 
 passport.serializeUser((user, done) => {
