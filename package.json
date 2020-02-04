@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "server": "nodemon server.js",
     "test": "mocha"
   },
@@ -38,10 +38,14 @@
     "validator": "^12.1.0"
   },
   "engines": {
+<<<<<<< HEAD
+    "node": "12.x"
+=======
     "node": "13.x"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^7.0.1"
+>>>>>>> 5e8780c370665461c142e70593b3bed8ac2f1944
   }
 }
