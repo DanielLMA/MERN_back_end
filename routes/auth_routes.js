@@ -10,4 +10,6 @@ router.post("/register", celebrate({
     }
 }), AuthController.register);
 
+
+
 module.exports = router;

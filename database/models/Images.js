@@ -14,7 +14,11 @@ const ImageSchema = new Schema( {
     imagePath: {
     	type: String,
     	required:true
-    }	    
+    },
+    slug: {
+        type: String,
+    	required:true
+    }  
 })
 
 const Image = mongoose.model("Image", ImageSchema)
