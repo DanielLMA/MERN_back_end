@@ -13,7 +13,7 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  },
+  }
 });
 
 UserSchema.plugin(passportLocalMongoose, { usernameField: 'email', usernameUnique: true } )
