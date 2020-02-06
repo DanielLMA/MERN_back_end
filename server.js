@@ -8,10 +8,13 @@ require ("dotenv").config()
 const app = express();
 
 //Change front end domain here and ... for
-app.use(cors({
-  origin: process.env.FRONT_END_DOMAIN_LIVE
-  // origin: "*"
-}))
+// app.use(cors({
+//   origin: process.env.FRONT_END_DOMAIN_LIVE
+//   // origin: "*"
+// }))
+
+//insecure. Test for heroku
+app.use(cors())
 
 //getting heroku to work 
 // app.use(express.static('client/build'));
