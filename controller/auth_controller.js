@@ -1,9 +1,12 @@
-const { UserModel }  = require('../database/models/User')
+//authentication
 const JWTService = require("../services/jwt_service");
 const HTTPError = require('http-errors')
 const bcrypt = require('bcryptjs');
 
+//models
+const { UserModel }  = require('../database/models/User')
 
+//function for registering a new user using bcyrpt to hash password and then store in the UserModel
 function register(req, res, next) {
     console.log(req.body)
     const { email, password } = req.body;
@@ -21,14 +24,14 @@ function register(req, res, next) {
     });
 }
 
-async function logout(req, res) {
-    req.logout() 
-    res.redirect('/')
-}
+// async function logout(req, res) {
+//     req.logout() 
+//     res.redirect('/')
+// }
 
-async function loginNew(req, res) { 
-    res.render('pages/login')
-}
+// async function loginNew(req, res) { 
+//     res.render('pages/login')
+// }
 
 async function loginCreate(req, res) {
     const token = JWTService.generateToken(req.user);
@@ -37,7 +40,6 @@ async function loginCreate(req, res) {
 
 async function  getUsers(req, res) {
     const users = await UserModel.find()
-
     res.json({users})
 }
 
@@ -48,35 +50,3 @@ module.exports = {
     loginCreate,
     getUsers
 }
-
-
-
-
-
-
-
-//! auth controller before modularizing
-// const jwt = require("jsonwebtoken")
-// const keys = require('../config/keys')
-// require ("dotenv").config()
-
-// // Render the user registration form
-// async function registerNew(req, res) {
-//     res.render('auth/register')
-// }
-
-// // Create a new user
-// async function registerCreate(req, res) {
-//     const { email, password } = req.body
-
-//     const user = await UserModel.create({  email, password })
-
-//     req.login(user, (err) => {
-//         if (err) {
-//             return next(err)
-//         }
-//         loginCreate(req, res)
-//     })
-//     //res.json & pass token
-//     // res.redirect("/dashboard")
-// }

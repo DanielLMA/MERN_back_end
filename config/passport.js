@@ -3,7 +3,7 @@ const { UserModel } = require("../database/models/User");
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const LocalStrategy = require('passport-local')
 
-//SERIALIZE AND DESERIALIZE 
+//Passport serialize and deserialize. 
 passport.serializeUser((user, done) => {
     done(null, user._id)
 }) 
@@ -17,7 +17,7 @@ passport.deserializeUser(async (id, done) => {
     }
 })
 
-//STRATEGIES. MAY CONVERT ALL TO JWT STRATEGY IN THE END. 
+//Two strategies used: Local/JWT. 
 passport.use(new LocalStrategy({
         usernameField: "email"
     },
@@ -30,6 +30,7 @@ passport.use(new LocalStrategy({
         return done(null, user)
     }
 ))
+
 passport.use(
   new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -47,28 +48,3 @@ passport.use(
 );
 
 module.exports = passport;
-
-
-
-//!before modularize
-// passport.serializeUser(UserModel.serializeUser());
-// passport.deserializeUser(UserModel.deserializeUser());
-
-// passport.use(new JwtStrategy({
-//         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-//         secretOrKey: process.env.SESSION_SECRET
-//     },
-//     async (jwt_payload, done) => {
-//         try{
-//             const user = await UserModel.findById(jwt_payload.sub);
-
-//             if (!user) {
-//                 return done(null, false);
-//             }
-
-//             return done(null, user);           
-//         } catch (error) {
-//             return done(error);
-//         }
-//     }
-// ));
