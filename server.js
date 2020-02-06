@@ -38,6 +38,7 @@ app.use(require("./routes"));
 
 app.use(express.static("public"));
 
+//calls the error handler middleware when errors arise. 
 app.use(require("./middleware/error_handler_middleware"));
 
 const port = process.env.PORT || 5000;
