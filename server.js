@@ -44,7 +44,9 @@ app.use(morgan("combined"));
 
 app.use(require("./routes"));
 
-app.use(express.static("public"));
+//original
+// app.use(express.static("public"));
+app.use(express.static(__dirname + '/public'));
 
 //calls the error handler middleware when errors arise. 
 app.use(require("./middleware/error_handler_middleware"));
