@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema 
 
+//Image schema requiring name, data, path in order to be used for retrieving cloudinary images.
 const ImageSchema = new Schema( {
     imageName: {
         type: String,

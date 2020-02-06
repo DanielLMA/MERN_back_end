@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+//authentication
 const passportLocalMongoose = require('passport-local-mongoose');
 const bcrypt = require('bcryptjs')
 

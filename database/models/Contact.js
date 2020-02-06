@@ -1,6 +1,8 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
+
+//contact schema for contact form from contact_page.js in react app. 
 const ContactSchema = new Schema( {
     email: {
         type: String,
