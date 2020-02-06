@@ -14,9 +14,11 @@ app.use(cors({
 }))
 
 //getting heroku to work 
-app.use(express.static(path.resolve(__dirname, 'src/public')));
-// app.use('/', cloudinaryConfig);
-app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../client/public/index.html')));
+app.use(express.static('client/build'));
+
+app.get('*',(req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
 //--->
 
 //make changes here and connect.js when setting DB_HOST
