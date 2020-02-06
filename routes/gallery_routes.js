@@ -1,9 +1,15 @@
+//app
 const express = require("express");
 const router = express.Router();
+const app = express();
+
+//dependencies, authentication 
 const bodyParser= require('body-parser');
 const { celebrate, Joi } = require("celebrate");
+
+
+//controllers
 const GalleryController = require("../controller/gallery_controller");
-const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 

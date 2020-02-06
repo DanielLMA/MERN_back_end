@@ -1,53 +1,53 @@
+//app
 const express = require("express");
 const router = express.Router();
+
+//authentication
 const passport = require("passport")
-const AuthRoutes = require("./auth_routes");
-const PageController = require('../controller/page_controller')
+
+//controllers
 const AuthController = require('../controller/auth_controller')
+
+//models
 const ImageModel = require('../database/models/Images')
 const ContactModel = require("../controller/contact_controller")
-const GalleryRoutes = require("./gallery_routes");
-// const { authRedirect, authorise } = require('../middleware/auth_middleware')
 
+//routes
+const GalleryRoutes = require("./gallery_routes");
+const AuthRoutes = require("./auth_routes");
+
+
+//Image displaying routes for gallery page. 
 router.get("/images", (req,res) => {
     ImageModel.find().then(docs => res.send(docs))
 })
+//Directs to GalleryRoutes subdirectory for uploading functionality of gallery page.
+router.use("/uploadingToGallery", GalleryRoutes);
 
-// router.post("/form", (req, res) => {
-//     console.log(req.body)
-//     res.sendStatus(200)
-//     // ContactModel.create()
-//   })
+//Routes for Post and Get of the form from the contact form. 
 router.post("/form", (req, res) => {
     console.log(req.body)
     res.sendStatus(200)
     ContactModel.create(req)
 })
-  
   router.get("/form", (req, res) => {
       console.log("Route works")
     res.sendStatus(200)
   })
 
-router.use("/auth", AuthRoutes);
-router.use("/uploadingToGallery", GalleryRoutes);
+//Routes used for Logging in and creating a user
 
-// router.get('/dashboard', passport.authenticate('jwt', {session: false}), PageController.dashboard)
-// router.get("/", PageController.index);
-//local and successRedirect hashed before jwt 
+//For authentication of a new user. Directs to AuthRoute sub-directory. 
+router.use("/auth", AuthRoutes);
+
+//Route used to direct a login and authenticate using passport. Login is created using a method within the AuthController. 
 router.post('/login', passport.authenticate('local', {
     // successRedirect: "/",
     // failureRedirect: "/login",
     session: false,
 }), AuthController.loginCreate)
 
+//Test route for retrieving all users 
 router.get('/users', AuthController.getUsers)
-
-
-//?previous routes before modularize. 
-// router.get('/register', authRedirect, AuthController.registerNew)
-// router.post('/register', AuthController.registerCreate)
-// router.get('/logout', AuthController.logout)
-// router.get('/login', authRedirect, AuthController.loginNew)
 
 module.exports = router;

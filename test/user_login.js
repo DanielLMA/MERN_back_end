@@ -89,16 +89,16 @@ describe('User', function() {
 });
 
 
-// describe('Users', () => {
-//   describe('/users', () => {
-//       it('it should GET all the users', (done) => {
-//           chai.request(app)
-//               .get('/users')
-//               .end((err, res) => {
-//                   expect(res).to.have.status(200);
-//                   expect(res.body).to.be.a('object');
-//                   done();
-//                });
-//       });
-//   });
-// });
+describe('Users', () => {
+  describe('/users', () => {
+      it('it should GET all the users', (done) => {
+          chai.request(app)
+              .get('/users')
+              .end((err, res) => {
+                  expect(res).to.have.status(200);
+                  expect(res.body).to.be.a('object');
+                  done();
+               });
+      });
+  });
+});
