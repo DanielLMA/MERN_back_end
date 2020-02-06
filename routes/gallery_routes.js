@@ -19,7 +19,7 @@ router.post('/postImage', celebrate({
     body: {
         imageName: Joi.string().required(),
         imageData: Joi.string().required(),
-        imagePath: Joi.string().required(),
+        imagePublicId: Joi.string().required(),
         slug: Joi.string().required()
     }
 }), GalleryController.postImage);
@@ -28,7 +28,7 @@ router.put('/updateImage/:id', celebrate({
     body: {
         imageName: Joi.string().required(),
         imageData: Joi.string().required(),
-        imagePath: Joi.string().required(),
+        imagePublicId: Joi.string().required(),
         slug: Joi.string().required()
     }
 }), GalleryController.updateImage);

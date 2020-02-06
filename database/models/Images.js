@@ -12,7 +12,7 @@ const ImageSchema = new Schema( {
         type: String,
         required: true
     },
-    imagePath: {
+    imagePublicId: {
     	type: String,
     	required:true
     },
