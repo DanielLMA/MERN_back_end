@@ -13,6 +13,14 @@ app.use(cors({
   // origin: "*"
 }))
 
+//getting heroku to work 
+app.use(express.static('client/build'));
+
+app.get('*',(req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
+//--->
+
 //make changes here and connect.js when setting DB_HOST
 mongoose
   .connect(
