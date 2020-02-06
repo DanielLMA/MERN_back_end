@@ -24,14 +24,14 @@ function register(req, res, next) {
     });
 }
 
-// async function logout(req, res) {
-//     req.logout() 
-//     res.redirect('/')
-// }
+async function logout(req, res) {
+    req.logout() 
+    res.redirect('/')
+}
 
-// async function loginNew(req, res) { 
-//     res.render('pages/login')
-// }
+async function loginNew(req, res) { 
+    res.render('pages/login')
+}
 
 async function loginCreate(req, res) {
     const token = JWTService.generateToken(req.user);
